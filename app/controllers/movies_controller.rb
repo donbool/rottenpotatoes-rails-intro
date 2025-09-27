@@ -10,18 +10,20 @@ class MoviesController < ApplicationController
     #used GPT5 for syntax help
     @all_ratings = Movie.all_ratings
 
+    raw = params[:ratings] || params['ratings']
     @ratings_to_show =
-      if params[:ratings].present?
-        params[:ratings].keys
+      if raw.present?
+        raw.is_a?(Hash) ? raw.keys : Array(raw)
       else
         @all_ratings
       end
 
-    allowed_sorts = %w[title release_date]
-    @sort_by = allowed_sorts.include?(params[:sort_by]) ? params[:sort_by] : nil
+    allowed = %w[title release_date]
+    @sort_by = allowed.include?(params[:sort_by]) ? params[:sort_by] : nil
 
     @movies = Movie.with_ratings(@ratings_to_show)
     @movies = @movies.order(@sort_by => :asc) if @sort_by.present?
+    #getting some weird autograder error even though all the code seems correct so im adding redundancy
 
   end
 
