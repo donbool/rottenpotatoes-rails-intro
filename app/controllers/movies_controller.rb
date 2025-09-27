@@ -10,11 +10,12 @@ class MoviesController < ApplicationController
     #used GPT5 for syntax help
     @all_ratings = Movie.all_ratings
 
-    if params[:ratings].present?
-      @ratings_to_show = params[:ratings].keys
-    else
-      @ratings_to_show = @all_ratings
-    end
+    @ratings_to_show =
+      if params[:ratings].present?
+        params[:ratings].keys
+      else
+        @all_ratings
+      end
 
     allowed_sorts = %w[title release_date]
     @sort_by = allowed_sorts.include?(params[:sort_by]) ? params[:sort_by] : nil
