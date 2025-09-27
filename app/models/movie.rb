@@ -5,10 +5,6 @@ class Movie < ActiveRecord::Base
 
   def self.with_ratings(ratings_list)
     ratings_list.present? ? where(rating: ratings_list) : all
-    # if ratings_list.nil? || ratings_list.empty?
-    #   all
-    # else
-    #   where(rating: ratings_list)
-    # end
   end
+  #used gpt5 for syntax help
 end
