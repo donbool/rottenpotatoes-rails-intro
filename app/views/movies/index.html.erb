@@ -49,9 +49,9 @@
   </thead>
   <tbody>
     <% @movies.each do |movie| %>
-      <tr>
+      <tr class="movie">
         <td>
-          <div class="movie"><%= movie.title %></div>
+          <%= movie.title %>
         </td>
         <td>
           <%= movie.rating %>
