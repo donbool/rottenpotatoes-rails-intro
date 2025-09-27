@@ -4,7 +4,8 @@ class Movie < ActiveRecord::Base
   end
 
   def self.with_ratings(ratings_list)
-    ratings_list.present? ? where(rating: ratings_list) : all
+    return all if ratings_list.blank?
+    where('LOWER(rating) IN (?)', Array(ratings_list).map(&:downcase))  end
+  #used gpt5 for syntax help and debugging
   end
-  #used gpt5 for syntax help
 end
