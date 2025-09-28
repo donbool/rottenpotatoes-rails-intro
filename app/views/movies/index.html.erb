@@ -28,43 +28,38 @@
   
 <% end %>
 
-<div class="movies-container">
-  <div class="row header-row mb-2">
-    <% ratings_hash = @ratings_to_show.index_with('1') %>
-    <div class="col-md-3">
-      <%= link_to 'Title',
-          movies_path(sort_by: 'title', ratings: ratings_hash),
-          id: 'title_header', class: 'fw-bold' %>
-    </div>
-    <div class="col-md-2">
-      <span class="fw-bold">Rating</span>
-    </div>
-    <div class="col-md-3">
-      <%= link_to 'Release Date',
-          movies_path(sort_by: 'release_date', ratings: ratings_hash),
-          id: 'release_date_header', class: 'fw-bold' %>
-    </div>
-    <div class="col-md-4">
-      <span class="fw-bold">More Info</span>
-    </div>
-  </div>
+<% @movies.each do |movie| %>
+  <div class="movie"><%= movie.title %></div>
+<% end %>
 
-  <% @movies.each do |movie| %>
-    <div class="row movie-row border-bottom py-2">
-      <div class="col-md-3">
-        <div class="movie"><%= movie.title %></div>
-      </div>
-      <div class="col-md-2">
-        <%= movie.rating %>
-      </div>
-      <div class="col-md-3">
-        <%= movie.release_date %>
-      </div>
-      <div class="col-md-4">
-        <%= link_to "More about #{movie.title}", movie_path(movie) %>
-      </div>
-    </div>
-  <% end %>
-</div>
+<table class="table table-striped col-md-12" id="movies">
+  <thead>
+    <tr>
+      <% ratings_hash = @ratings_to_show.index_with('1') %>
 
+      <th>
+        <%= link_to 'Title',
+            movies_path(sort_by: 'title', ratings: ratings_hash),
+            id: 'title_header' %>
+      </th>
+      <th>Rating</th>
+      <th>
+        <%= link_to 'Release Date',
+            movies_path(sort_by: 'release_date', ratings: ratings_hash),
+            id: 'release_date_header' %>
+      </th>
+      <th>More Info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @movies.each do |movie| %>
+      <tr>
+        <td><div class="movie"><%= movie.title %></div></td>
+        <td><%= movie.rating %></td>
+        <td><%= movie.release_date %></td>
+        <td><%= link_to "More about #{movie.title}", movie_path(movie) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 <%= link_to 'Add new movie', new_movie_path, :class => 'btn btn-primary' %>
