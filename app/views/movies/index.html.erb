@@ -28,48 +28,44 @@
   
 <% end %>
 
-<div id="movies">
-  <div class="d-flex gap-4 mb-2">
-    <% ratings_hash = @ratings_to_show.index_with('1') %>
-    <%= link_to 'Title',
-        movies_path(sort_by: 'title', ratings: ratings_hash),
-        id: 'title_header', class: 'link-primary' %>
-    <%= link_to 'Release Date',
-        movies_path(sort_by: 'release_date', ratings: ratings_hash),
-        id: 'release_date_header', class: 'link-primary' %>
-  </div>
+<% ratings_hash = @ratings_to_show.index_with('1') %>
 
-  <table class="table table-striped col-md-12">
-    <thead>
-      <tr>
-        <th>Movie Title</th>
-        <th>Rating</th>
-        <th>Release Date</th>
-        <th>More Info</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @movies.each do |movie| %>
-        <tr>
-          <td><%= movie.title %></td>
-          <td><%= movie.rating %></td>
-          <td><%= movie.release_date %></td>
-          <td><%= link_to "More about #{movie.title}", movie_path(movie) %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  <div class="visually-hidden">
+<table class="table table-striped col-md-12">
+  <thead>
+    <tr>
+      <th>
+        <%= link_to 'Title',
+            movies_path(sort_by: 'title', ratings: ratings_hash),
+            id: 'title_header' %>
+      </th>
+      <th>Rating</th>
+      <th>
+        <%= link_to 'Release Date',
+            movies_path(sort_by: 'release_date', ratings: ratings_hash),
+            id: 'release_date_header' %>
+      </th>
+      <th>More Info</th>
+    </tr>
+  </thead>
+  <tbody>
     <% @movies.each do |movie| %>
-      <div class="movie"><%= movie.title %></div>
+      <tr>
+        <td><%= movie.title %></td>
+        <td><%= movie.rating %></td>
+        <td><%= movie.release_date %></td>
+        <td><%= link_to "More about #{movie.title}", movie_path(movie) %></td>
+      </tr>
     <% end %>
-  </div>
-</div>
+  </tbody>
+</table>
 
-<div id="movies_divs" class="visually-hidden">
+<div id="movies">
   <% @movies.each do |movie| %>
-    <div class="movie"><%= movie.title %></div>
+    <div class="movie">
+      <span class="title"><%= movie.title %></span>
+      <span class="rating"><%= movie.rating %></span>
+      <span class="release_date"><%= movie.release_date %></span>
+    </div>
   <% end %>
 </div>
 
