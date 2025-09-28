@@ -28,34 +28,24 @@
   
 <% end %>
 
-<table class="table table-striped col-md-12" id="movies">
-  <thead>
-    <tr>
-      <% ratings_hash = @ratings_to_show.index_with('1') %>
+<div class="d-flex gap-4 mb-2">
+  <% ratings_hash = @ratings_to_show.index_with('1') %>
+  <%= link_to 'Title',
+      movies_path(sort_by: 'title', ratings: ratings_hash),
+      id: 'title_header', class: 'link-primary' %>
+  <%= link_to 'Release Date',
+      movies_path(sort_by: 'release_date', ratings: ratings_hash),
+      id: 'release_date_header', class: 'link-primary' %>
+</div>
 
-      <th>
-        <%= link_to 'Title',
-            movies_path(sort_by: 'title', ratings: ratings_hash),
-            id: 'title_header' %>
-      </th>
-      <th>Rating</th>
-      <th>
-        <%= link_to 'Release Date',
-            movies_path(sort_by: 'release_date', ratings: ratings_hash),
-            id: 'release_date_header' %>
-      </th>
-      <th>More Info</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @movies.each do |movie| %>
-      <tr>
-        <td><div class="movie"><%= movie.title %></div></td>
-        <td><%= movie.rating %></td>
-        <td><%= movie.release_date %></td>
-        <td><%= link_to "More about #{movie.title}", movie_path(movie) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div id="movies">
+  <% @movies.each do |movie| %>
+    <div class="movie border rounded p-2 mb-2">
+      <div class="title"><%= movie.title %></div>
+      <div class="rating"><%= movie.rating %></div>
+      <div class="release_date"><%= movie.release_date %></div>
+      <div class="more_info"><%= link_to "More about #{movie.title}", movie_path(movie) %></div>
+    </div>
+  <% end %>
+</div>
 <%= link_to 'Add new movie', new_movie_path, :class => 'btn btn-primary' %>
