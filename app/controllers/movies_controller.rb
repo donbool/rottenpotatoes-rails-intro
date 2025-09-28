@@ -10,7 +10,7 @@ class MoviesController < ApplicationController
     #used GPT5 for syntax help
     @all_ratings = Movie.all_ratings
 
-    if params[:ratings].present?
+    if params[:ratings].present? && !params[:ratings].empty?
       @ratings_to_show = params[:ratings].keys
     else
       @ratings_to_show = @all_ratings
